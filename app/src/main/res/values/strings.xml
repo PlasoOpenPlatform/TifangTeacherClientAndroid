@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name" translatable="false">梯方在线教师端</string>
+    <string name="login" translatable="false">登  录</string>
+    <string name="logout" translatable="false">退出登录</string>
+    <string name="loginname_hint" translatable="false">请输入用户名</string>
+    <string name="input_pwd" translatable="false">请输入密码</string>
+    <string name="remember_password" translatable="false">记住密码</string>
+    <string name="teacher_name" translatable="false">老师姓名</string>
+    <string name="title_live_class" translatable="false">实时课堂</string>
+    <string name="title_homework" translatable="false">巩固</string>
+    <string name="err_login" translatable="false">登录信息获取失败</string>
+    <string name="err_user_info" translatable="false">用户信息获取失败</string>
+    <string name="err_logout" translatable="false">退出登录失败</string>
+</resources>
