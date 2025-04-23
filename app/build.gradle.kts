@@ -19,7 +19,7 @@ android {
             useSupportLibrary = true
         }
     }
-
+    tasks.register("prepareKotlinBuildScriptModel"){}
     buildTypes {
         release {
             isMinifyEnabled = false
@@ -27,18 +27,6 @@ android {
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
-        }
-    }
-
-    flavorDimensions("color")
-    productFlavors {
-        //开发调试->伯索
-        create("plaso1120") {
-            dimension = "color"
-        }
-        //开发调试->伯索
-        create("plaso") {
-            dimension = "color"
         }
     }
 
@@ -63,12 +51,6 @@ android {
     kotlinOptions {
         jvmTarget = "1.8"
     }
-    buildFeatures {
-        compose = true
-    }
-    composeOptions {
-        kotlinCompilerExtensionVersion = "1.5.1"
-    }
     packagingOptions {
         resources {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
@@ -82,6 +64,7 @@ android {
 }
 
 dependencies {
+//    implementation("cn.plaso:yxtsdk:1.0.40")
     implementation("cn.plaso:yxtsdk:2.0.0-beta.6")
 
     implementation("androidx.core:core-ktx:1.10.1")

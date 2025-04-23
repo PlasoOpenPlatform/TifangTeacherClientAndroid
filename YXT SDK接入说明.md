@@ -15,6 +15,75 @@ YXT SDK 是一个用于集成伯索云教育平台功能的开发工具包，提
 <uses-permission android:name="android.permission.INTERNET" />
 ```
 
+### 2.3 项目依赖
+
+1.在项目级build.gradle中添加仓库
+
+```
+buildscript {
+    repositories {
+        google()
+        mavenCentral()
+        maven { url 'https://maven.aliyun.com/nexus/content/groups/public/' }
+        maven { url 'https://nexus.plaso.cn/repository/maven-public/' }
+        maven { url 'https://jitpack.io' }
+    }
+}
+
+
+allprojects {
+    repositories {
+        google()
+        mavenCentral()
+        maven { url 'https://maven.aliyun.com/nexus/content/groups/public/' }
+        maven { url 'https://nexus.plaso.cn/repository/maven-public/' }
+        maven { url 'https://jitpack.io' }
+    }
+}
+```
+
+settings.gradle.kts配置方式：
+
+```
+pluginManagement {
+    repositories {
+        maven("https://maven.aliyun.com/nexus/content/groups/public/")
+        maven("https://nexus.plaso.cn/repository/maven-public/")
+        maven("https://www.jitpack.io")
+        google()
+        mavenCentral()
+    }
+}
+dependencyResolutionManagement {
+    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+    repositories {
+        maven("https://maven.aliyun.com/nexus/content/groups/public/")
+        maven("https://nexus.plaso.cn/repository/maven-public/")
+        maven("https://jitpack.io")
+        google()
+        mavenCentral()
+    }
+}
+```
+
+2.在模块级build.gradle中添加依赖库
+
+```
+dependencies {
+    implementation 'cn.plaso:yxtsdk:2.0.0-beta.6'
+}
+```
+
+build.gradle.kts配置方式：
+
+```
+dependencies {
+    implementation("cn.plaso:yxtsdk:2.0.0-beta.6")
+}
+```
+
+
+
 ## 3. SDK接入方式
 
 ### 3.1 SDK初始化
