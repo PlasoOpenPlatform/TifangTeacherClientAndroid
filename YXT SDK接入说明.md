@@ -172,14 +172,14 @@ YxtSDK.updateToken(bsToken, userType, object : SDKInitCallback {
 YxtSDK.startLiveClass(this)
 ```
 
-#### 3.2.4 启动实时课堂
+#### 3.2.4 启动作业页面
 
  * 前置条件：
      1. 必须完成SDK初始化（YxtSDK.init()）
      2. 必须已通过updateToken()设置有效Token和用户角色
 
 ```
-YxtSDK.startLiveClass(this)
+YxtSDK.startHomework(this)
 ```
 
 ### 3.3 用户登出
