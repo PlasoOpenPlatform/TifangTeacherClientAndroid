@@ -6,9 +6,9 @@
     <application
         android:name=".activity.DemoMainApplication"
         android:allowBackup="true"
-        android:icon="@drawable/tifang"
+        android:icon="@drawable/tifang_white"
         android:label="@string/app_name"
-        android:roundIcon="@drawable/tifang"
+        android:roundIcon="@drawable/tifang_white"
         android:supportsRtl="true"
         android:theme="@style/Theme.Yxtandroid3">
         <activity

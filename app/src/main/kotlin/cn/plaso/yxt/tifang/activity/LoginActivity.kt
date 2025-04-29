@@ -13,7 +13,7 @@ import cn.plaso.yxt.tifang.databinding.TifangActivityLoginBinding
 import cn.plaso.yxt.tifang.util.GetTokenHelper
 import cn.plaso.yxt.tifang.util.LoginUtil
 import cn.plaso.yxt.tifang.util.SignHelper
-import cn.plaso.yxt.yxtsdk.AccountManager
+import cn.plaso.yxt.yxtsdk.EnvManager
 import cn.plaso.yxt.yxtsdk.SDKInitCallback
 import cn.plaso.yxt.yxtsdk.YxtSDK
 import okhttp3.OkHttpClient
@@ -42,19 +42,26 @@ class LoginActivity : AppCompatActivity() {
         mBinding.checkBoxStudent.setOnCheckedChangeListener { _: CompoundButton, checked: Boolean ->
             mBinding.checkBoxTeacher.isChecked = !checked
         }
+        mBinding.btLogin.text = EnvManager.getEnvString(this)
 
         mBinding.btLogin.setOnClickListener {
-            // 测试账号
-            if (mBinding.etPwd.text.isNullOrEmpty()) {
-                mUserType = if (mBinding.checkBoxTeacher.isChecked) LoginUtil.USER_TYPE_TEACHER else LoginUtil.USER_TYPE_STUDENT
-                loginGetToken()
+            val username = mBinding.etUsername.text.toString()
+            if (EnvManager.isEnv(username)) {
+                EnvManager.setEnv(username)
+                Log.d(TAG, "切换环境: $username")
+                System.exit(0)
             } else {
-                // 梯方账号
-                login(mBinding.etUsername.text.toString(), mBinding.etPwd.text.toString())
-//                login("18899990505", "TiFang555555")
+                // 测试账号
+                if (mBinding.etPwd.text.isNullOrEmpty()) {
+                    mUserType =
+                        if (mBinding.checkBoxTeacher.isChecked) LoginUtil.USER_TYPE_TEACHER else LoginUtil.USER_TYPE_STUDENT
+                    loginGetToken()
+                } else {
+                    // 梯方账号
+                    login(username, mBinding.etPwd.text.toString())
+                }
             }
         }
-
 
     }
 
@@ -127,18 +134,18 @@ class LoginActivity : AppCompatActivity() {
         handler = Handler(Looper.getMainLooper())
         Thread {
             val queryMap = mutableMapOf<String, Any>()
-            queryMap["appId"] = AccountManager.APPID
+            queryMap["appId"] = EnvManager.getAppId()
             queryMap["validTime"] = 1200
             queryMap["validBegin"] = System.currentTimeMillis() / 1000
             queryMap["loginName"] = mBinding.etUsername.text.toString()
             queryMap["userType"] = mUserType
-            val signedQuery = SignHelper.sign(queryMap, AccountManager.SIGNKEY)
+            val signedQuery = SignHelper.sign(queryMap, EnvManager.getSignKey())
 
             println("signedQuery: $signedQuery")
 
             val resp =
                 GetTokenHelper.getToken(
-                    url = "https://${AccountManager.getServerUrl()}/dataentry/user/getToken",
+                    url = "https://${EnvManager.getServerUrl()}/dataentry/user/getToken",
                     queryMap
                 )
 

@@ -92,7 +92,7 @@
                             android:hint="@string/loginname_hint"
                             android:includeFontPadding="false"
                             android:inputType="textPersonName"
-                            android:text="1865yxfs"
+                            android:text="tifang"
                             android:textColor="#333333"
                             android:textColorHint="@color/login_grey"
                             android:textSize="14sp" />

@@ -3,21 +3,13 @@ package cn.plaso.yxt.tifang.activity
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
 import android.util.Log
 import android.widget.Toast
-import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
-import cn.plaso.yxt.base.event.SyncEvent
 import cn.plaso.yxt.tifang.LoginActivity
 import cn.plaso.yxt.tifang.R
 import cn.plaso.yxt.tifang.databinding.TifangActivityMainBinding
-import cn.plaso.yxt.tifang.util.GetTokenHelper
 import cn.plaso.yxt.tifang.util.LoginUtil
-import cn.plaso.yxt.tifang.util.SignHelper
-import cn.plaso.yxt.util.logger.YXTLog
-import cn.plaso.yxt.yxtsdk.AccountManager
 import cn.plaso.yxt.yxtsdk.YxtSDK
 import org.json.JSONObject
 

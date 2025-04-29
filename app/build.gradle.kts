@@ -65,7 +65,7 @@ android {
 
 dependencies {
 //    implementation("cn.plaso:yxtsdk:1.0.40")
-    implementation("cn.plaso:yxtsdk:2.0.0-beta.6")
+    implementation("cn.plaso:yxtsdk:2.0.0-beta.13")
 
     implementation("androidx.core:core-ktx:1.10.1")
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.6.1")
