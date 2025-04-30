@@ -14,7 +14,7 @@ class DemoMainApplication : Application() {
     override fun onCreate() {
         super.onCreate()
         mDemoMainApplication = this
-        YxtSDK.init(this, object : SDKInitCallback {
+        YxtSDK.init(this, "tifang",  object : SDKInitCallback {
             override fun onInitSuccess() {
                 Log.i(TAG, "SDK init success.")
             }

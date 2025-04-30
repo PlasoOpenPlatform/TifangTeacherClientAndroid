@@ -100,7 +100,7 @@ class DemoMainApplication : Application() {
         mDemoMainApplication = this
         
         // 回调接口处理初始化成功or失败场景
-        YxtSDK.init(context, object : SDKInitCallback {
+        YxtSDK.init(context, "您的机构名称，如：plaso",  object : SDKInitCallback {
             override fun onInitSuccess() {
                 //初始化成功调用
             }
@@ -115,7 +115,7 @@ class DemoMainApplication : Application() {
 也可不实现回调接口：
 
 ```
-YxtSDK.init(this)
+YxtSDK.init(this, "您的机构名称，如：plaso")
 ```
 
 ### 3.2 SDK功能模块调用

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest
-    xmlns:android="http://schemas.android.com/apk/res/android">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" >
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
@@ -10,20 +10,21 @@
         android:label="@string/app_name"
         android:roundIcon="@drawable/tifang_white"
         android:supportsRtl="true"
-        android:theme="@style/Theme.Yxtandroid3">
+        android:theme="@style/Theme.Yxtandroid3"
+        tools:replace="android:theme">
         <activity
             android:name=".activity.MainActivity"
+            android:screenOrientation="locked"
             android:exported="false" />
         <activity
             android:name=".LoginActivity"
+            android:screenOrientation="locked"
             android:exported="true"
             android:theme="@style/Theme.Yxtandroid3">
         <intent-filter>
             <action android:name="android.intent.action.MAIN" />
-
             <category android:name="android.intent.category.LAUNCHER" />
         </intent-filter>
         </activity>
     </application>
-
 </manifest>
