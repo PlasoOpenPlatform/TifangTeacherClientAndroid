@@ -11,7 +11,7 @@ android {
     defaultConfig {
         applicationId = "cn.plaso.yxt.tifang"
         minSdk = 24
-        targetSdk = 34
+        targetSdk = 33
         versionCode = 1
         versionName = "1.0"
 
@@ -65,7 +65,7 @@ android {
 
 dependencies {
 //    implementation("cn.plaso:yxtsdk:1.0.40")
-    implementation("cn.plaso:yxtsdk:2.0.0-beta.17")
+    implementation("cn.plaso:yxtsdk:2.0.0-beta.20")
 
     implementation("androidx.core:core-ktx:1.10.1")
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.6.1")

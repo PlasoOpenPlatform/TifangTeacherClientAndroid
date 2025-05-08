@@ -46,21 +46,21 @@ class LoginActivity : AppCompatActivity() {
 
         mBinding.btLogin.setOnClickListener {
             val username = mBinding.etUsername.text.toString()
-            if (EnvManager.isEnv(username)) {
-                EnvManager.setEnv(username)
-                Log.d(TAG, "切换环境: $username")
-                System.exit(0)
-            } else {
-                // 测试账号
-                if (mBinding.etPwd.text.isNullOrEmpty()) {
-                    mUserType =
-                        if (mBinding.checkBoxTeacher.isChecked) LoginUtil.USER_TYPE_TEACHER else LoginUtil.USER_TYPE_STUDENT
-                    loginGetToken()
-                } else {
-                    // 梯方账号
+//            if (EnvManager.isEnv(username)) {
+//                EnvManager.setEnv(username)
+//                Log.d(TAG, "切换环境: $username")
+//                System.exit(0)
+//            } else {
+//                // 测试账号
+//                if (mBinding.etPwd.text.isNullOrEmpty()) {
+//                    mUserType =
+//                        if (mBinding.checkBoxTeacher.isChecked) LoginUtil.USER_TYPE_TEACHER else LoginUtil.USER_TYPE_STUDENT
+//                    loginGetToken()
+//                } else {
+//                    // 梯方账号
                     login(username, mBinding.etPwd.text.toString())
-                }
-            }
+//                }
+//            }
         }
 
     }
