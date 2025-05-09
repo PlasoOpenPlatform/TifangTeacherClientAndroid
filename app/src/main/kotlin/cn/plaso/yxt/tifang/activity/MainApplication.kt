@@ -5,15 +5,15 @@ import android.util.Log
 import cn.plaso.yxt.yxtsdk.SDKInitCallback
 import cn.plaso.yxt.yxtsdk.YxtSDK
 
-class DemoMainApplication : Application() {
+class MainApplication : Application() {
     companion object {
-        private val TAG : String = DemoMainApplication::class.java.simpleName
+        private val TAG : String = MainApplication::class.java.simpleName
     }
-    private var mDemoMainApplication: DemoMainApplication? = null
+    private var mMainApplication: MainApplication? = null
 
     override fun onCreate() {
         super.onCreate()
-        mDemoMainApplication = this
+        mMainApplication = this
         YxtSDK.init(this, "tifang",  object : SDKInitCallback {
             override fun onInitSuccess() {
                 Log.i(TAG, "SDK init success.")

@@ -1,10 +1,12 @@
 package cn.plaso.yxt.tifang
 
 import android.content.Intent
+import android.content.pm.ActivityInfo
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.util.Log
+import android.view.View
 import android.widget.CompoundButton
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -34,38 +36,47 @@ class LoginActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         mBinding = TifangActivityLoginBinding.inflate(layoutInflater)
         setContentView(mBinding.root)
+        initView()
+    }
 
-        mBinding.checkBoxTeacher.setOnCheckedChangeListener { _: CompoundButton, checked: Boolean ->
-            mBinding.checkBoxStudent.isChecked = !checked
+    private fun initView() {
+        //对客版本，隐藏学生老师切换按钮
+        if (!EnvManager.isEnvPublishRelease()) {
+            mBinding.llRoleSelect.visibility = View.VISIBLE
+
+            mBinding.checkBoxTeacher.setOnCheckedChangeListener { _: CompoundButton, checked: Boolean ->
+                mBinding.checkBoxStudent.isChecked = !checked
+            }
+
+            mBinding.checkBoxStudent.setOnCheckedChangeListener { _: CompoundButton, checked: Boolean ->
+                mBinding.checkBoxTeacher.isChecked = !checked
+            }
         }
 
-        mBinding.checkBoxStudent.setOnCheckedChangeListener { _: CompoundButton, checked: Boolean ->
-            mBinding.checkBoxTeacher.isChecked = !checked
-        }
         mBinding.btLogin.text = EnvManager.getEnvString(this)
 
         mBinding.btLogin.setOnClickListener {
             val username = mBinding.etUsername.text.toString()
-//            if (EnvManager.isEnv(username)) {
-//                EnvManager.setEnv(username)
-//                Log.d(TAG, "切换环境: $username")
-//                System.exit(0)
-//            } else {
-//                // 测试账号
-//                if (mBinding.etPwd.text.isNullOrEmpty()) {
-//                    mUserType =
-//                        if (mBinding.checkBoxTeacher.isChecked) LoginUtil.USER_TYPE_TEACHER else LoginUtil.USER_TYPE_STUDENT
-//                    loginGetToken()
-//                } else {
-//                    // 梯方账号
+            if (EnvManager.isEnv(username)){
+                EnvManager.setEnv(username)
+                Log.d(TAG, "切换环境: $username")
+                System.exit(0)
+            } else {
+                // 测试账号登录，无需输入密码
+                if (mBinding.etPwd.text.isNullOrEmpty() && !EnvManager.isEnvPublishRelease()) {
+                    mUserType = if (mBinding.checkBoxTeacher.isChecked) LoginUtil.USER_TYPE_TEACHER else LoginUtil.USER_TYPE_STUDENT
+                    loginGetToken()
+                } else {
+                    // 正式对客版本，使用梯方账号登录
                     login(username, mBinding.etPwd.text.toString())
-//                }
-//            }
+                }
+            }
         }
-
     }
 
-
+    /**
+     * 调用梯方登录接口，登录并获取token
+     */
     private fun login(loginId: String, password: String){
         LoginUtil.login(
             loginId = loginId,
@@ -73,7 +84,6 @@ class LoginActivity : AppCompatActivity() {
             onSuccess = {
                 it.body?.let { responseBody ->
                     val responseData = responseBody.string()
-                    Log.d(TAG, "响应数据: $responseData")
 
                     try {
                         val jsonResponse = JSONObject(responseData)
@@ -88,7 +98,6 @@ class LoginActivity : AppCompatActivity() {
                                 Log.d(TAG, "登录成功，用户名: $showName")
                                 YxtSDK.updateToken(bsToken, mUserType, object : SDKInitCallback {
                                     override fun onInitSuccess() {
-//                                        Toast.makeText(this@LoginActivity, "onInitSuccess", Toast.LENGTH_SHORT).show()
                                         startActivity(
                                             Intent(this@LoginActivity, MainActivity::class.java)
                                                 .putExtra(LoginUtil.TOKEN_BS, bsToken)
@@ -96,6 +105,7 @@ class LoginActivity : AppCompatActivity() {
                                                 .putExtra(LoginUtil.LOGIN_SHOW_NAME, showName)
                                                 .putExtra(LoginUtil.USER_ID, userId)
                                         )
+                                        finish()
                                     }
 
                                     override fun onInitError(code: Int?) {
@@ -128,7 +138,7 @@ class LoginActivity : AppCompatActivity() {
     }
 
     /**
-     * 待用户直接传token，此方法可以删除
+     * 获取用户token
      */
     private fun loginGetToken(){
         handler = Handler(Looper.getMainLooper())
@@ -151,16 +161,12 @@ class LoginActivity : AppCompatActivity() {
 
             if (resp.isSuccessful) {
                 val data = resp.body?.string()
-
-                Log.d(TAG, "MainActivity $data")
-
                 try {
                     if (data != null) {
                         JSONObject(data).run {
                             val obj = optJSONObject("obj")
                             val code = obj?.optInt("code")
                             val token = obj?.optString("token")
-//                            Log.d(TAG, "code :$code token $token")
                             if (code != 0) {
                                 handler.post {
                                     Toast.makeText(this@LoginActivity, R.string.err_user_info, Toast.LENGTH_SHORT
@@ -179,13 +185,13 @@ class LoginActivity : AppCompatActivity() {
                                                     .putExtra(LoginUtil.LOGIN_NAME, mBinding.etUsername.text.toString())
                                                     .putExtra(LoginUtil.USER_TYPE, mUserType)
                                             )
+                                            finish()
                                         }
 
                                         override fun onInitError(code: Int?) {
                                             Toast.makeText(this@LoginActivity, R.string.err_user_info, Toast.LENGTH_SHORT).show()
                                         }
                                     })
-//                                    initToken(token)
                                 }
                             }
 
@@ -199,5 +205,16 @@ class LoginActivity : AppCompatActivity() {
 
             }
         }.start()
+    }
+
+    /**
+     * pad固定横屏，phone固定竖屏
+     */
+    fun screenOrientation() {
+        if (YxtSDK.isPad()) {
+            requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_SENSOR_LANDSCAPE
+        } else {
+            requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
+        }
     }
 }

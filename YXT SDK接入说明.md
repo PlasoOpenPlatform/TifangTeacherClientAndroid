@@ -92,12 +92,12 @@ dependencies {
 
 ```
 
-class DemoMainApplication : Application() {
-    private var mDemoMainApplication: DemoMainApplication? = null
+class MainApplication : Application() {
+    private var mMainApplication: MainApplication? = null
 
     override fun onCreate() {
         super.onCreate()
-        mDemoMainApplication = this
+        mMainApplication = this
         
         // 回调接口处理初始化成功or失败场景
         YxtSDK.init(context, "您的机构名称，如：plaso",  object : SDKInitCallback {

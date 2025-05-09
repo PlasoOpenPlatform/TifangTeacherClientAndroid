@@ -16,6 +16,9 @@ object LoginUtil {
     const val USER_TYPE_TEACHER = "teacher"
     const val USER_TYPE_STUDENT = "student"
 
+    /**
+     * 调用梯方登录接口，登录并获取token
+     */
     fun login(loginId: String, password: String, onSuccess: (Response) -> Unit, onFailure: (IOException) -> Unit) {
         val url = "https://teacher-api.tifangedu.com/user/pwdLoginv2"
         val body = JSONObject().apply {
@@ -39,6 +42,9 @@ object LoginUtil {
         )
     }
 
+    /**
+     * 调用梯方登出接口
+     */
     fun logout(token: String, onSuccess: (Response) -> Unit, onFailure: (IOException) -> Unit) {
         val url = "https://teacher-api.tifangedu.com/user/logout"
 

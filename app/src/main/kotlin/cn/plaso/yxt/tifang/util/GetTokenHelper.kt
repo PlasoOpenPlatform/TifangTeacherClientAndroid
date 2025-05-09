@@ -11,6 +11,9 @@ object GetTokenHelper {
 
     private val okHttpClient = OkHttpClient.Builder().build()
 
+    /**
+     * 获取用户token
+     */
     fun getToken(
         url: String,
         queryMap: MutableMap<String, Any>

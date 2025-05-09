@@ -2,6 +2,7 @@ package cn.plaso.yxt.tifang.activity
 
 import android.annotation.SuppressLint
 import android.content.Intent
+import android.content.pm.ActivityInfo
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
@@ -14,7 +15,7 @@ import cn.plaso.yxt.yxtsdk.YxtSDK
 import org.json.JSONObject
 
 /**
- * 有4个场景按钮的功能页，需继承base
+ * 主页面，可跳转至实时课堂与巩固页面
  */
 class MainActivity : AppCompatActivity() {
     private val TAG = MainActivity::class.java.simpleName
@@ -42,21 +43,9 @@ class MainActivity : AppCompatActivity() {
         mShowName = intent.getStringExtra(LoginUtil.LOGIN_SHOW_NAME) ?: ""
         mUserId = intent.getStringExtra(LoginUtil.USER_ID) ?: ""
 
-        // TODO: 待用户直接传token，取消注释
-//        if (mTifangatoken.isNullOrEmpty()) {
-//            Log.d(TAG, "mTifangatoken is null, MainActivity finish. ")
-//            finish()
-//        } else if (mBsToken.isNullOrEmpty()) {
-//            Log.d(TAG, "bsToken is null, MainActivity finish. ")
-//            finish()
-//        }
-
         mBinding = TifangActivityMainBinding.inflate(layoutInflater)
         setContentView(mBinding.root)
         initView()
-
-//        YxtSDK.updateToken( mBsToken!!, userType!!)
-
     }
 
     private fun initView() {
@@ -82,6 +71,7 @@ class MainActivity : AppCompatActivity() {
                                 runOnUiThread {
                                     YxtSDK.doLogout()
                                     startActivity(Intent(this@MainActivity, LoginActivity::class.java))
+                                    finish()
                                 }
                             } else {
                                 val message = jsonResponse.getString("message")
@@ -114,5 +104,13 @@ class MainActivity : AppCompatActivity() {
     @Deprecated("Deprecated in Java")
     @SuppressLint("MissingSuperCall")
     override fun onBackPressed() {
+    }
+
+    fun screenOrientation() {
+        if (YxtSDK.isPad()) {
+            requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_SENSOR_LANDSCAPE
+        } else {
+            requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
+        }
     }
 }

@@ -7,9 +7,6 @@ import javax.crypto.spec.SecretKeySpec
 
 object SignHelper {
 
-    /**
-     * Sign the [params] with specific [signKey]
-     */
     fun sign(params: MutableMap<String, Any>, signKey: String): String {
         val keys = params.keys.sorted()
         val sortedParams = StringBuilder()
