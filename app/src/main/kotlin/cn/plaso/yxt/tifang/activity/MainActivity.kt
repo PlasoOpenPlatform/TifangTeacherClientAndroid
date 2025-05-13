@@ -36,7 +36,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
         loginName = intent.getStringExtra(LoginUtil.LOGIN_NAME) ?: LOGINNAME
-
+        screenOrientation()
         userType = intent.getStringExtra(LoginUtil.USER_TYPE) ?: LoginUtil.USER_TYPE_TEACHER
         mTifangatoken = intent.getStringExtra(LoginUtil.TOKEN_TIFANG) ?: ""
         mBsToken = intent.getStringExtra(LoginUtil.TOKEN_BS) ?: ""
@@ -50,11 +50,11 @@ class MainActivity : AppCompatActivity() {
 
     private fun initView() {
         mBinding.rlLive.setOnClickListener {
-            YxtSDK.startLiveClass(this)
+            YxtSDK.startLiveClass(this, true)
         }
 
         mBinding.rlHomework.setOnClickListener {
-            YxtSDK.startHomework(this)
+            YxtSDK.startHomework(this, true)
         }
         mBinding.tvLogout.setOnClickListener {
             LoginUtil.logout(
@@ -95,7 +95,6 @@ class MainActivity : AppCompatActivity() {
 
         }
         mBinding.tvUserName.text = mShowName
-
     }
 
     /**

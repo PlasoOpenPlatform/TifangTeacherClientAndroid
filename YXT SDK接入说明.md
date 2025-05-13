@@ -100,7 +100,7 @@ class MainApplication : Application() {
         mMainApplication = this
         
         // 回调接口处理初始化成功or失败场景
-        YxtSDK.init(context, "您的机构名称，如：plaso",  object : SDKInitCallback {
+        YxtSDK.init(context, "您的机构名称，如：plaso",  object : SDKCallback {
             override fun onInitSuccess() {
                 //初始化成功调用
             }
@@ -150,7 +150,7 @@ Token 具体获取方式请参考：[YXT API文档-Open API帮助文档-用户�
  *                  - onInitSuccess：
  *				     需根据错误码进行差异化处理，建议提示用户重新登录或联系技术支持。
  */
-YxtSDK.updateToken(bsToken, userType, object : SDKInitCallback {
+YxtSDK.updateToken(bsToken, userType, object : SDKCallback {
     override fun onInitSuccess() {
         // Token初始化成功回调
         // 可在此执行后续业务逻辑

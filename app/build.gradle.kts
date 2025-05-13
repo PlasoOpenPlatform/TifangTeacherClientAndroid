@@ -15,6 +15,15 @@ android {
         versionCode = 1
         versionName = "1.0"
 
+        signingConfigs {
+            create("release") {
+                storeFile = file("key/tifang.jks")
+                storePassword = "cn.plaso.yxt.tifang"
+                keyAlias = "tifang"
+                keyPassword = "cn.plaso.yxt.tifang"
+            }
+        }
+
         vectorDrawables {
             useSupportLibrary = true
         }
@@ -23,10 +32,18 @@ android {
     buildTypes {
         release {
             isMinifyEnabled = false
+            signingConfig = signingConfigs.getByName("release")
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
+        }
+    }
+
+    flavorDimensions("color")
+    productFlavors {
+        create("plaso") {
+            dimension = "color"
         }
     }
 
@@ -65,7 +82,7 @@ android {
 
 dependencies {
 //    implementation("cn.plaso:yxtsdk:1.0.40")
-    implementation("cn.plaso:yxtsdk:2.0.0-beta.23")
+    implementation("cn.plaso:yxtsdk:2.0.0-teacher-beta.24")
 
     implementation("androidx.core:core-ktx:1.10.1")
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.6.1")

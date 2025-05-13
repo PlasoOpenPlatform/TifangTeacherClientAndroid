@@ -16,7 +16,7 @@ import cn.plaso.yxt.tifang.util.GetTokenHelper
 import cn.plaso.yxt.tifang.util.LoginUtil
 import cn.plaso.yxt.tifang.util.SignHelper
 import cn.plaso.yxt.yxtsdk.EnvManager
-import cn.plaso.yxt.yxtsdk.SDKInitCallback
+import cn.plaso.yxt.yxtsdk.SDKCallback
 import cn.plaso.yxt.yxtsdk.YxtSDK
 import okhttp3.OkHttpClient
 import org.json.JSONObject
@@ -36,6 +36,7 @@ class LoginActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         mBinding = TifangActivityLoginBinding.inflate(layoutInflater)
         setContentView(mBinding.root)
+        screenOrientation()
         initView()
     }
 
@@ -96,7 +97,7 @@ class LoginActivity : AppCompatActivity() {
 
                             runOnUiThread {
                                 Log.d(TAG, "登录成功，用户名: $showName")
-                                YxtSDK.updateToken(bsToken, mUserType, object : SDKInitCallback {
+                                YxtSDK.updateToken(bsToken, mUserType, object : SDKCallback {
                                     override fun onInitSuccess() {
                                         startActivity(
                                             Intent(this@LoginActivity, MainActivity::class.java)
@@ -161,6 +162,7 @@ class LoginActivity : AppCompatActivity() {
 
             if (resp.isSuccessful) {
                 val data = resp.body?.string()
+
                 try {
                     if (data != null) {
                         JSONObject(data).run {
@@ -177,7 +179,7 @@ class LoginActivity : AppCompatActivity() {
                             } else {
                                 handler.post {
                                     Log.d(TAG, "initToken: $token")
-                                    YxtSDK.updateToken( token!!, mUserType, object : SDKInitCallback {
+                                    YxtSDK.updateToken( token!!, mUserType, object : SDKCallback {
                                         override fun onInitSuccess() {
                                             startActivity(
                                                 Intent(this@LoginActivity, MainActivity::class.java)
