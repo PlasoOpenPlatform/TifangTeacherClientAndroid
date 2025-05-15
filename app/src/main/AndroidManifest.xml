@@ -1,7 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools" >
+    xmlns:tools="http://schemas.android.com/tools">
+
     <uses-permission android:name="android.permission.INTERNET" />
+
+    <queries>
+        <package android:name="com.tencent.mm" />
+        <package android:name="com.eg.android.AlipayGphone" />
+        <package android:name="com.tencent.mobileqq"/>
+        <package android:name="com.tencent.minihd.qq"/>
+    </queries>
 
     <application
         android:name=".activity.MainApplication"
@@ -14,17 +22,37 @@
         tools:replace="android:theme">
         <activity
             android:name=".activity.MainActivity"
-            android:screenOrientation="locked"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="locked" />
         <activity
             android:name=".LoginActivity"
-            android:screenOrientation="locked"
             android:exported="true"
+            android:screenOrientation="locked"
             android:theme="@style/Theme.Yxtandroid3">
-        <intent-filter>
-            <action android:name="android.intent.action.MAIN" />
-            <category android:name="android.intent.category.LAUNCHER" />
-        </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.tencent.tauth.AuthActivity"
+            android:exported="true"
+            android:noHistory="true"
+            android:launchMode="singleTask">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data android:scheme="102788094" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.tencent.connect.common.AssistActivity"
+            android:screenOrientation="behind"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar"
+            android:configChanges="orientation|keyboardHidden">
         </activity>
     </application>
+
 </manifest>

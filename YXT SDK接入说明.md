@@ -100,7 +100,7 @@ class MainApplication : Application() {
         mMainApplication = this
         
         // 回调接口处理初始化成功or失败场景
-        YxtSDK.init(context, "您的机构名称，如：plaso",  object : SDKCallback {
+        YxtSDK.init(this, "您的机构名称，如：plaso",  object : SDKCallback {
             override fun onInitSuccess() {
                 //初始化成功调用
             }
@@ -168,9 +168,31 @@ YxtSDK.updateToken(bsToken, userType, object : SDKCallback {
      1. 必须完成SDK初始化（YxtSDK.init()）
      2. 必须已通过updateToken()设置有效Token和用户角色
 
+1）启动实时课堂Activity
+
 ```
-YxtSDK.startLiveClass(this)
+/**
+ * 启动实时课堂页面
+ *
+ * @param context 有效的Activity上下文
+ * @param backButton 是否显示返回按钮，默认不显示
+ */
+YxtSDK.startLiveClass(this, true)
 ```
+
+2）获取实时课堂Fragment
+
+```
+/**
+ * 获取实时课堂模块fragment页面
+ *
+ * @param intent 当前Activity的Intent（可选）
+ * @param backButton 是否显示返回按钮，默认不显示
+ */
+YxtSDK.getLiveClassFragment(intent, false)
+```
+
+
 
 #### 3.2.4 启动作业页面
 
@@ -178,8 +200,28 @@ YxtSDK.startLiveClass(this)
      1. 必须完成SDK初始化（YxtSDK.init()）
      2. 必须已通过updateToken()设置有效Token和用户角色
 
+1）启动作业Activity
+
 ```
-YxtSDK.startHomework(this)
+/**
+ * 启动实时课堂页面
+ *
+ * @param context 有效的Activity上下文
+ * @param backButton 是否显示返回按钮，默认不显示
+ */
+YxtSDK.startHomework(this, true)
+```
+
+2）获取作业Fragment
+
+```
+/**
+ * 获取作业模块fragment页面
+ *
+ * @param intent 当前Activity的Intent（可选）
+ * @param backButton 是否显示返回按钮，默认不显示
+ */
+YxtSDK.getHomeworkFragment(intent, false)
 ```
 
 ### 3.3 用户登出
