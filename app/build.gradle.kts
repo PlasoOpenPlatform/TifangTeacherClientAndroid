@@ -82,7 +82,7 @@ android {
 
 dependencies {
 //    implementation("cn.plaso:yxtsdk:1.0.40")
-    implementation("cn.plaso:yxtsdk:2.0.0-teacher-beta.27")
+    implementation("cn.plaso:yxtsdk:2.0.0-teacher-beta.28")
 
     implementation("androidx.core:core-ktx:1.10.1")
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.6.1")
