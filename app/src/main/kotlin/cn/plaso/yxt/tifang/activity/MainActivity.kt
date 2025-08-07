@@ -5,6 +5,7 @@ import android.content.Intent
 import android.content.pm.ActivityInfo
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import cn.plaso.yxt.tifang.LoginActivity
@@ -22,7 +23,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var mBinding: TifangActivityMainBinding
 
     companion object {
-        const val LOGINNAME = "1866yyxs"
+        const val LOGINNAME = ""
     }
 
     private var loginName: String? = null
@@ -55,6 +56,16 @@ class MainActivity : AppCompatActivity() {
 
         mBinding.rlHomework.setOnClickListener {
             YxtSDK.startHomework(this, true)
+        }
+
+        mBinding.rlDatacenter.visibility = if (YxtSDK.isPad()) {
+            View.VISIBLE
+        } else {
+            View.GONE
+        }
+
+        mBinding.rlDatacenter.setOnClickListener {
+            YxtSDK.startMyFileActivity(this, true)
         }
         mBinding.tvLogout.setOnClickListener {
             LoginUtil.logout(

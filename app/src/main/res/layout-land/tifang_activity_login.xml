@@ -222,7 +222,7 @@
                     android:id="@+id/bt_login"
                     android:layout_width="320dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/dp_30"
+                    android:layout_marginTop="@dimen/dp_10"
                     android:background="@drawable/login_bt_login"
                     android:padding="10dp"
                     android:text="@string/login"

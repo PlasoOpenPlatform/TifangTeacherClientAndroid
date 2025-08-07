@@ -10,7 +10,7 @@ android {
 
     defaultConfig {
         applicationId = "cn.plaso.yxt.tifang"
-        minSdk = 24
+        minSdk = 26
         targetSdk = 33
         versionCode = 1
         versionName = "1.0"
@@ -28,7 +28,7 @@ android {
             useSupportLibrary = true
         }
     }
-    tasks.register("prepareKotlinBuildScriptModel"){}
+
     buildTypes {
         release {
             isMinifyEnabled = false
@@ -42,7 +42,7 @@ android {
 
     flavorDimensions("color")
     productFlavors {
-        create("plaso") {
+        create("tifang") {
             dimension = "color"
         }
     }
@@ -81,8 +81,7 @@ android {
 }
 
 dependencies {
-//    implementation("cn.plaso:yxtsdk:1.0.40")
-    implementation("cn.plaso:yxtsdk:2.0.0-teacher-beta.33-aind")
+    implementation("cn.plaso:yxtsdk:2.0.5-teacher-aind")
 
     implementation("androidx.core:core-ktx:1.10.1")
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.6.1")

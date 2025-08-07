@@ -7,7 +7,7 @@ YXT SDK 是一个用于集成伯索云教育平台功能的开发工具包，提
 ## 2. 集成准备
 ### 2.1 环境要求
 - Android 开发环境
-- Android 7.0 （minSdk = 24）
+- Android 8.0 （minSdk = 26）
 
 ### 2.2 权限配置
 在 `AndroidManifest.xml` 中添加以下权限：
@@ -70,7 +70,7 @@ dependencyResolutionManagement {
 
 ```
 dependencies {
-    implementation 'cn.plaso:yxtsdk:2.0.0-beta.6'
+    implementation 'cn.plaso:yxtsdk:2.0.0'
 }
 ```
 
@@ -78,7 +78,7 @@ build.gradle.kts配置方式：
 
 ```
 dependencies {
-    implementation("cn.plaso:yxtsdk:2.0.0-beta.6")
+    implementation("cn.plaso:yxtsdk:2.0.0")
 }
 ```
 
@@ -107,6 +107,11 @@ class MainApplication : Application() {
             override fun onInitError(code: Int?) {
                 //初始化失败调用
             }
+            override fun onTokenError() {
+                Log.e(TAG, "Token Error")
+                YxtSDK.doLogout()
+                //token失效相关逻辑
+            }
         })
     }
 }
@@ -124,7 +129,7 @@ YxtSDK.init(this, "您的机构名称，如：plaso")
 
 使用本 SDK 功能模块，需提供用户在 YXT 平台的合法 Token，用于身份认证与权限校验。
 
-Token 具体获取方式请参考：[YXT API文档-Open API帮助文档-用户信息管理-用户访问Token](https://app.apifox.com/project/3466838) 
+Token 具体获取方式请参考：[YXT API文档-Open API帮助文档-用户信息管理-用户访问Token](https://app.apifox.com/project/3466838)
 
 注意事项：
 
@@ -164,9 +169,9 @@ YxtSDK.updateToken(bsToken, userType, object : SDKCallback {
 
 #### 3.2.3 启动实时课堂页面
 
- * 前置条件：
-     1. 必须完成SDK初始化（YxtSDK.init()）
-     2. 必须已通过updateToken()设置有效Token和用户角色
+* 前置条件：
+   1. 必须完成SDK初始化（YxtSDK.init()）
+   2. 必须已通过updateToken()设置有效Token和用户角色
 
 1）启动实时课堂Activity
 
@@ -196,9 +201,9 @@ YxtSDK.getLiveClassFragment(intent, false)
 
 #### 3.2.4 启动作业页面
 
- * 前置条件：
-     1. 必须完成SDK初始化（YxtSDK.init()）
-     2. 必须已通过updateToken()设置有效Token和用户角色
+* 前置条件：
+   1. 必须完成SDK初始化（YxtSDK.init()）
+   2. 必须已通过updateToken()设置有效Token和用户角色
 
 1）启动作业Activity
 
@@ -224,6 +229,26 @@ YxtSDK.startHomework(this, true)
 YxtSDK.getHomeworkFragment(intent, false)
 ```
 
+#### 3.2.5 启动资料中心页面
+
+* 前置条件：
+   1. 必须完成SDK初始化（YxtSDK.init()）
+   2. 必须已通过updateToken()设置有效Token和用户角色
+
+启动资料中心Activity
+
+```
+/**
+ * 启动资料中心页面
+ *
+ * @param context 有效的Activity上下文
+ * @param backButton 是否显示返回按钮，默认不显示
+ */
+YxtSDK.startMyFileActivity(this, true)
+```
+
+​
+
 ### 3.3 用户登出
 
 用户登出，需调用如下代码清理用户在sdk中的用户信息：
@@ -231,18 +256,3 @@ YxtSDK.getHomeworkFragment(intent, false)
 ```
 YxtSDK.doLogout()
 ```
-
-### 
-
-
-
-
-
-
-
-
-
-
-
-
-

@@ -8,7 +8,9 @@
     <string name="teacher_name" translatable="false">老师姓名</string>
     <string name="title_live_class" translatable="false">实时课堂</string>
     <string name="title_homework" translatable="false">巩固</string>
+    <string name="title_datacenter" translatable="false">资料中心</string>
     <string name="err_login" translatable="false">登录信息获取失败</string>
     <string name="err_user_info" translatable="false">用户信息获取失败</string>
     <string name="err_logout" translatable="false">退出登录失败</string>
+    <string name="err_token" translatable="false">登录失效，请重新登录</string>
 </resources>
